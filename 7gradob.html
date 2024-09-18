@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Blas 3D</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+     <style>
+        #map {
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #locationList {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+        @media (min-width: 768px) {
+            #locationList {
+                flex-direction: row;
+            }
+        }
+        .list-group-item {
+            flex: 1;
+            text-align: center;
+            background-color: transparent;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .list-group-item a {
+            color: #000;
+            text-decoration: none;
+        }
+        .list-group-item a:hover {
+            text-decoration: underline;
+        }
+        header img {
+            height: auto;
+            max-height: 120px;
+            width: auto;
+            max-width: 100%;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .prev, .next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header class="text-white text-center py-4 d-flex justify-content-center align-items-center">
+        <div class="d-flex align-items-center">
+            <h1 class="mb-0"></h1>
+            <img src="logo.png" alt="Logo" style="height: 120px; margin-left: 10px;"> 
+    </header>
+    <main class="container mt-4">
+        <div id="map" class="mb-4">
+            <div class="sketchfab-embed-wrapper"> <iframe title="colegio3D" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/4efb918bdcaa4b4bb67f0a700f869574/embed"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/colegio3d-4efb918bdcaa4b4bb67f0a700f869574?utm_medium=embed&utm_campaign=share-popup&utm_content=4efb918bdcaa4b4bb67f0a700f869574" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> colegio3D </a> by <a href="https://sketchfab.com/kmiilitaaa?utm_medium=embed&utm_campaign=share-popup&utm_content=4efb918bdcaa4b4bb67f0a700f869574" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> kmiilitaaa </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=4efb918bdcaa4b4bb67f0a700f869574" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Instrucciones Para Llegar</h2>
+                <h9 class="text-center">Dirigirse por el pasillo y girar a la izquierda, 
+                seguir recto hasta las escaleras, una vez subidas las escaleras girar a la derecha y seguir hasta las siguientes escaleras, la puerta frente a las escaleras.</h9>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Colegio San Blas</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const slides = document.querySelector('.slides');
+        const slide = document.querySelectorAll('.slide');
+        const prev = document.querySelector('.prev');
+        const next = document.querySelector('.next');
+        let index = 0;
+
+        function showSlide(i) {
+            index = (i + slide.length) % slide.length;
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        prev.addEventListener('click', () => {
+            showSlide(index - 1);
+        });
+
+        next.addEventListener('click', () => {
+            showSlide(index + 1);
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
